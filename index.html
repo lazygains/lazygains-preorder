@@ -32,26 +32,17 @@ nav button:hover, .btn:hover{background:var(--green)}
 
 .page{display:none;padding:20px;max-width:800px;margin:auto}
 .active{display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px}
 .card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 4px 12px rgba(0,0,0,.05);margin-bottom:15px;border:1px solid #f0f0f0}
-.stat{font-size:28px;font-weight:bold;color:var(--orange)}
 
 input,select,textarea{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;font-family:'Poppins', sans-serif}
 label{font-size:13px;font-weight:600;color:#555}
 
-.badge{background:var(--green);color:#fff;padding:4px 10px;border-radius:20px;font-size:12px}
 .toast{position:fixed;right:20px;bottom:20px;background:#333;color:#fff;padding:12px 20px;border-radius:10px;display:none;z-index:999;font-size:14px}
 .btn-wa{display:inline-block;margin-top:10px;padding:10px 16px;background:#25D366;color:white;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px;text-align:center}
 
 .note-box{background:#fef9e7;border-left:5px solid var(--yellow);padding:12px;margin:10px 0;border-radius:6px;font-size:13px;color:#7d5a29;line-height:1.5}
 .menu-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #eee}
 .qty-input{width:70px!important;margin:0!important;text-align:center}
-
-/* Style Tabel Dashboard */
-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:13px}
-th,td{border:1px solid #eee;padding:10px;text-align:left}
-th{background:var(--yellow);color:#fff}
-.img-preview{width:60px;height:60px;object-fit:cover;border-radius:6px;cursor:pointer}
 </style>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
@@ -66,7 +57,6 @@ th{background:var(--yellow);color:#fff}
 <nav>
   <button onclick="showPage('order')">Form Order</button>
   <button onclick="showPage('info')">Info PO & Lokasi</button>
-  <button onclick="showPage('rekap')">Rekap Pesanan</button>
 </nav>
 
 <!-- PAGE 1: FORM ORDER -->
@@ -218,33 +208,6 @@ th{background:var(--yellow);color:#fff}
   </div>
 </section>
 
-<!-- PAGE 3: REKAP PESANAN (ONLINE & UPDATED) -->
-<section id="rekap" class="page">
-  <div class="card">
-    <h2>Daftar Pesanan Masuk</h2>
-    <p style="font-size:12px; color:gray;">Data tersimpan secara otomatis dan selalu terupdate dari database.</p>
-    
-    <div style="overflow-x:auto;">
-      <table>
-        <thead>
-          <tr>
-            <th>Nama</th>
-            <th>No. WA</th>
-            <th>Pengambilan</th>
-            <th>Batch</th>
-            <th>Detail Item</th>
-            <th>Total</th>
-            <th>Bukti Bayar</th>
-          </tr>
-        </thead>
-        <tbody id="ordersTable">
-          <tr><td colspan="7" style="text-align:center;">Memuat data pesanan...</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</section>
-
 <div class="toast" id="toast"></div>
 
 <script>
@@ -256,7 +219,6 @@ const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_
 function showPage(id){
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById(id).classList.add('active');
-    if(id === 'rekap') fetchOrders();
 }
 
 function toast(t){
@@ -332,7 +294,7 @@ async function submitOrder(e){
             const { data: publicUrlData } = supabaseClient.storage.from('proofs').getPublicUrl(fileName);
             imageUrl = publicUrlData.publicUrl;
         } else {
-            imageUrl = "Upload gagal / file lokal: " + fileName;
+            imageUrl = "Upload file: " + fileName;
         }
 
         // 2. Simpan Data Order ke Tabel Database Supabase (Table: orders)
@@ -351,68 +313,19 @@ async function submitOrder(e){
 
         if (dbError) {
             console.error(dbError);
-            alert("Gagal menyimpan ke database. Pastikan tabel 'orders' sudah dibuat di Supabase.");
+            alert("Gagal menyimpan pesanan. Pastikan tabel 'orders' sudah dikonfigurasi di Supabase.");
             return;
         }
 
-        toast("Pesanan berhasil dikirim!");
+        alert("🎉 Pesanan berhasil dikirim! Terima kasih telah melakukan Pre-Order.");
         document.getElementById('poForm').reset();
         calculateTotal();
-        showPage('rekap');
 
     } catch (err) {
         console.error(err);
         alert("Terjadi kesalahan sistem saat mengirim pesanan.");
     }
 }
-
-// Mengambil dan memperbarui data pesanan dari Supabase
-async function fetchOrders(){
-    let tbody = document.getElementById('ordersTable');
-    tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Memuat data...</td></tr>';
-
-    const { data, error } = await supabaseClient.from('orders').select('*').order('created_at', { ascending: false });
-
-    if(error){
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center; color:red;">Gagal memuat data dari database.</td></tr>';
-        return;
-    }
-
-    if(!data || data.length === 0){
-        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;">Belum ada pesanan yang masuk.</td></tr>';
-        return;
-    }
-
-    tbody.innerHTML = '';
-    data.forEach(o => {
-        let tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td><b>${o.name}</b></td>
-            <td><a href="https://wa.me/${o.phone.replace(/[^0-9]/g, '')}" target="_blank" style="color:var(--green); font-weight:bold;">${o.phone}</a></td>
-            <td>${o.method} ${o.address ? `<br><small>(${o.address})</small>` : ''}</td>
-            <td>${o.batch}</td>
-            <td>${o.items}</td>
-            <td><b>Rp ${parseInt(o.total_price).toLocaleString('id-ID')}</b></td>
-            <td>${o.proof_url ? `<a href="${o.proof_url}" target="_blank"><img src="${o.proof_url}" class="img-preview" alt="Bukti"></a>` : '-'}</td>
-        `;
-        tbody.appendChild(tr);
-    });
-}
-
-// Realtime Subscriber agar data selalu terupdate
-function listenRealtimeOrders(){
-    supabaseClient
-        .channel('realtime-orders')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'orders' }, payload => {
-            toast(`Pesanan baru masuk dari ${payload.new.name}! 🎉`);
-            fetchOrders();
-        })
-        .subscribe();
-}
-
-window.onload = function() {
-    listenRealtimeOrders();
-};
 </script>
 </body>
 </html>
