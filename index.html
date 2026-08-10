@@ -1,479 +1,118 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<title>COMTEA</title>
-<style>
-:root{--brown:#5c3d2e;--gold:#c9933a;--cream:#fdf6ec;--green:#4caf50}
-*{box-sizing:border-box} body{margin:0;font-family:Segoe UI;background:var(--cream)}
-header{background:linear-gradient(135deg,var(--brown),var(--gold));color:#fff;padding:40px;text-align:center}
-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;background:#fff;padding:12px;position:sticky;top:0;box-shadow:0 2px 10px rgba(0,0,0,.1)}
-nav button,.btn{border:none;padding:10px 16px;border-radius:10px;cursor:pointer;background:var(--gold);color:#fff}
-.page{display:none;padding:20px;max-width:1200px;margin:auto}
-.active{display:block}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:15px}
-.card{background:#fff;border-radius:18px;padding:18px;box-shadow:0 4px 12px rgba(0,0,0,.08);margin-bottom:15px}
-.stat{font-size:32px;font-weight:bold;color:var(--brown)}
-input,textarea{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc}
-.profile{border:1px solid #ddd;border-radius:14px;padding:12px;margin:10px 0;background:#fafafa}
-.badge{background:var(--green);color:#fff;padding:4px 10px;border-radius:20px;font-size:12px}
-.toast{position:fixed;right:20px;bottom:20px;background:#333;color:#fff;padding:12px;border-radius:10px;display:none;z-index:999}
-.btn-wa{display:inline-block;margin-top:10px;padding:8px 12px;background:#25D366;color:white;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px}
-.note-box{background:#fff3cd;border-left:5px solid #ffc107;padding:12px;margin:10px 0;border-radius:6px;font-size:13px;color:#664d03;line-height:1.4}
-.divider{text-align:center;margin:20px 0;font-weight:bold;color:gray;position:relative}
-.divider::before, .divider::after{content:"";position:absolute;top:50%;width:40%;height:1px;background:#ccc}
-.divider::before{left:0} .divider::after{right:0}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu Makanan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+      display: flex;
+      justify-content: center;
+    }
 
-/* --- STYLE UNTUK GRUP CHAT --- */
-.chat-container { border: 1px solid #ddd; border-radius: 12px; background: #fff; display: flex; flex-direction: column; height: 450px; }
-.chat-box { flex: 1; padding: 15px; overflow-y: auto; background: #fdfbf7; display: flex; flex-direction: column; gap: 10px; }
-.chat-input-area { display: flex; padding: 10px; gap: 8px; border-top: 1px solid #eee; background: #fff; border-bottom-left-radius: 12px; border-bottom-right-radius: 12px; }
-.chat-input-area input { flex: 1; margin: 0; }
-.msg { padding: 10px 14px; border-radius: 12px; max-width: 75%; width: fit-content; word-break: break-word; line-height: 1.4; }
-.msg-other { background: #f1f0f0; align-self: flex-start; color: #333; }
-.msg-me { background: #e2f0d9; align-self: flex-end; color: #2e511c; border-bottom-right-radius: 2px; }
-.msg-user { font-weight: bold; font-size: 12px; display: block; margin-bottom: 3px; color: var(--brown); cursor: pointer; text-decoration: underline; }
-.msg-user:hover { color: var(--gold); }
-.msg-text { font-size: 14px; }
-.username-info { font-size: 13px; color: gray; margin-bottom: 8px; display: block; }
+    .container {
+      background-color: #ffffff;
+      padding: 25px;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      max-width: 400px;
+      width: 100%;
+    }
 
-/* --- STYLE UNTUK MODAL POPUP DETAIL PROFIL --- */
-.modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); align-items: center; justify-content: center; }
-.modal-content { background-color: #fff; padding: 24px; border-radius: 18px; width: 90%; max-width: 400px; box-shadow: 0 4px 20px rgba(0,0,0,0.2); position: relative; animation: fadeIn 0.3s; }
-.close-modal { position: absolute; top: 12px; right: 18px; font-size: 24px; cursor: pointer; color: #aaa; }
-.close-modal:hover { color: #333; }
-@keyframes fadeIn { from { opacity: 0; transform: scale(0.9); } to { opacity: 1; transform: scale(1); } }
-</style>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    fieldset.menu-category {
+      border: 2px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 15px;
+      margin-top: 15px;
+    }
+
+    legend {
+      font-weight: bold;
+      color: #d9534f;
+      padding: 0 8px;
+      font-size: 1.1em;
+    }
+
+    .option-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .option-item:last-child {
+      margin-bottom: 0;
+    }
+
+    .option-item label {
+      cursor: pointer;
+      flex-grow: 1;
+      margin-left: 8px;
+      color: #444;
+    }
+
+    .badge-limited {
+      background-color: #ff9800;
+      color: white;
+      font-size: 10px;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+      text-transform: uppercase;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #2e7d32;
+    }
+  </style>
 </head>
 <body>
-<header>
-<h1>🍵 COMTEA</h1>
-<h2 class="hero-subtitle">Connect Over Tea</h2>
-<p>Social Experience for Tea Lovers</p>
-</header>
 
-<nav>
-<button onclick="showPage('dashboard')">Dashboard</button>
-<button onclick="showPage('topics')">Topik</button>
-<button onclick="showPage('games')">Games</button>
-<button onclick="showPage('community')">Komunitas</button>
-<button onclick="showPage('groupchat')">Grup Chat</button>
-<button onclick="showPage('register')">Daftar / Masuk</button>
-</nav>
+  <div class="container">
+    <h1>Menu Restoran</h1>
 
-<section id="dashboard" class="page active">
-<div class="grid">
-<div class="card"><div class="stat" id="mCount">0</div>Member</div>
-<div class="card"><div class="stat" id="gCount">0</div>Games</div>
-<div class="card"><div class="stat" id="cCount">0</div>Kontak</div>
-</div>
-<br>
-<div class="card">
-<h2>Tentang COMTEA</h2>
-<p>Platform interaksi pelanggan gerai teh untuk memulai percakapan, bermain bersama, dan menemukan teman baru berdasarkan kesamaan minat.</p>
-</div>
-</section>
+    <!-- Menu ADD ON Sauces -->
+    <fieldset class="menu-category">
+      <legend>ADD ON Sauces</legend>
+      
+      <div class="option-item">
+        <input type="checkbox" id="lazy-gains" name="sauce" value="1500">
+        <label for="lazy-gains">Lazy Gains Sauce</label>
+        <span class="price">Rp 1.500</span>
+      </div>
 
-<section id="topics" class="page">
-<div class="card">
-<h2>Generator Topik Percakapan</h2>
-<button class="btn" onclick="newTopic()">Topik Acak</button>
-<h3 id="topicBox">Klik tombol untuk memulai percakapan.</h3>
-</div>
-</section>
+      <div class="option-item">
+        <input type="checkbox" id="chili-sauce" name="sauce" value="900">
+        <label for="chili-sauce">Chili Sauce</label>
+        <span class="price">Rp 900</span>
+      </div>
 
-<section id="games" class="page">
-<div class="grid">
-<div class="card"><h3>Truth or Dare</h3><button class="btn" onclick="truth()">Truth</button> <button class="btn" onclick="dare()">Dare</button><p id="tod"></p></div>
-<div class="card"><h3>Would You Rather</h3><button class="btn" onclick="wyr()">Generate</button><p id="wyrBox"></p></div>
-</div>
-<br>
-<div class="card"><h3>Trivia</h3><button class="btn" onclick="trivia()">Soal Baru</button><div id="triviaBox"></div></div>
-</section>
+      <div class="option-item">
+        <input type="checkbox" id="ketchup" name="sauce" value="600">
+        <label for="ketchup">Ketchup</label>
+        <span class="price">Rp 600</span>
+      </div>
 
-<section id="community" class="page">
-<div class="card">
-<h2>Cari Teman</h2>
-<div id="communityLockMessage"></div>
-<div id="communityContent">
-<input id="search" placeholder="Cari nama atau hobi..." oninput="renderUsers()">
-<div id="users"></div>
-</div>
-</div>
-</section>
+      <div class="option-item">
+        <input type="checkbox" id="garlic-sauce" name="sauce" value="1500">
+        <label for="garlic-sauce"><span class="badge-limited">LIMITED</span> Garlic Sauce</label>
+        <span class="price">Rp 1.500</span>
+      </div>
+    </fieldset>
+  </div>
 
-<section id="groupchat" class="page">
-<div class="card">
-<h2>Teahouse Group Chat 💬</h2>
-<span id="chatUserSession" class="username-info">Memeriksa status pendaftaran...</span>
-<p style="font-size: 11px; color: var(--gold); margin-top: -5px;">💡 Tips: Klik pada nama pengirim chat untuk melihat detail profil mereka!</p>
-<div class="chat-container">
-<div class="chat-box" id="chatBox">
-<p style="text-align: center; color: gray; font-size: 14px;">Memuat obrolan...</p>
-</div>
-<div class="chat-input-area">
-<input id="chatInput" placeholder="Ketik pesan di sini..." onkeypress="if(event.key==='Enter') sendChat()">
-<button class="btn" onclick="sendChat()">Kirim</button>
-</div>
-</div>
-</div>
-</section>
-
-<section id="register" class="page">
-<div id="currentSessionCard" class="card" style="display:none; background:#e2f0d9;">
-    <h3 style="margin-top:0; color:#2e511c;">👋 Halo, @<span id="sessionNameDisplay"></span>!</h3>
-    <p style="font-size:14px; color:#3e662b; margin-bottom:12px;">Perangkat ini sudah terhubung dengan akun membership kamu. Kamu bebas mengakses tab Komunitas dan Grup Chat.</p>
-    <button class="btn" style="background:#5c3d2e;" onclick="logoutUser()">Ganti Akun / Keluar</button>
-</div>
-
-<div id="registerFormCard" class="card">
-    <h2>Daftarkan Dirimu</h2>
-    <div class="note-box">
-        ℹ️ <b>Pemberitahuan Penting:</b><br>
-        Nomor WhatsApp yang kamu cantumkan di bawah ini akan digunakan sekaligus sebagai <b>Nomor Membership Toko</b> dan identitas kamu untuk bergabung ke dalam <b>Komunitas Comtea</b>. Setiap nomor dan username hanya bisa didaftarkan satu kali.
-    </div>
-    <input id="regName" placeholder="Username unik (tanpa spasi, contoh: teajourney)">
-    <input id="regPhone" placeholder="Nomor WhatsApp (Contoh: 62812345678)">
-    <input id="regHobby" placeholder="Hobi (musik, film, travel...)">
-    <textarea id="regBio" placeholder="Bio singkat"></textarea>
-    <button class="btn" onclick="saveUser()">Daftar Sebagai Member</button>
-
-    <div class="divider">ATAU</div>
-
-    <h2>Buka di Perangkat Lain?</h2>
-    <p style="font-size:14px; color:gray; margin-top:0;">Jika kamu sudah pernah mendaftar di HP/perangkat lain, masukkan Username terdaftar kamu di bawah ini untuk sinkronisasi data:</p>
-    <input id="loginName" placeholder="Masukkan Username Kamu">
-    <button class="btn" style="background:var(--brown);" onclick="loginUser()">Hubungkan Perangkat</button>
-</div>
-</section>
-
-<div id="profileModal" class="modal" onclick="if(event.target===this) closeProfileModal()">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeProfileModal()">&times;</span>
-        <h2 id="modalName" style="margin-top:0; color:var(--brown);">Username</h2>
-        <p id="modalBio" style="font-style: italic; color: #555;">-</p>
-        <p><b>Hobi:</b> <span id="modalHobby">-</span></p>
-        <div id="modalWaContainer"></div>
-    </div>
-</div>
-
-<div class="toast" id="toast"></div>
-
-<script>
-// Konfigurasi Supabase
-const SUPABASE_URL = "https://ftvsdjazqwbonanaihwh.supabase.co";
-const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dnNkamF6cXdib25hbmFpaHdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjIyNzMsImV4cCI6MjA5NjAzODI3M30.AOJh70E0Opgj86sHKNivkeL1fOptIBAaeoGuSEyRgQY";
-
-const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-let games = 0, contacts = 0;
-let globalUsers = []; 
-let currentUser = localStorage.getItem('comtea_username') || "";
-
-// Fungsi update statistik di dashboard
-function updateStats() {
-    document.getElementById('mCount').innerText = globalUsers.length;
-    document.getElementById('gCount').innerText = games;
-    document.getElementById('cCount').innerText = contacts;
-}
-function incGame() { games++; updateStats(); }
-
-function showPage(id){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    
-    if(id==='register') renderRegisterPage();
-    if(id==='community') checkCommunityLock();
-    if(id==='groupchat') {
-        checkChatSession();
-        fetchInitialChats();
-        setTimeout(() => { 
-            let chatBox = document.getElementById('chatBox');
-            if(chatBox) chatBox.scrollTop = chatBox.scrollHeight; 
-        }, 300);
-    }
-}
-
-function toast(t){
-    let x=document.getElementById('toast');
-    x.innerText=t;x.style.display='block';
-    setTimeout(()=>x.style.display='none',2000);
-}
-
-// Data Games & Topics
-const topics=["Kalau bisa tinggal di negara mana pun selama 1 tahun gratis, kamu pilih di mana?","Apa makanan yang bisa kamu makan setiap hari tanpa bosan?","Kalau besok tidak perlu bekerja atau kuliah lagi, kamu akan melakukan apa?","Siapa tokoh terkenal yang paling ingin kamu ajak ngobrol?","Apa skill yang paling ingin kamu kuasai saat ini?"];
-function newTopic(){ document.getElementById('topicBox').innerText=topics[Math.floor(Math.random()*topics.length)] }
-const truths=["Apa ketakutan terbesarmu?","Siapa crush pertamamu?","Apa hal paling memalukan yang pernah terjadi padamu?"];
-const dares=["Nyanyikan lagu favoritmu selama 20 detik.","Peragakan kucing selama 30 detik.","Bicara dengan aksen Inggris selama 1 menit."];
-function truth(){document.getElementById('tod').innerText=truths[Math.floor(Math.random()*truths.length)];incGame()}
-function dare(){document.getElementById('tod').innerText=dares[Math.floor(Math.random()*dares.length)];incGame()}
-const wyrs=[["Bisa terbang", "Bisa tak terlihat"],["Hidup tanpa internet", "Hidup tanpa musik"]];
-function wyr(){let q=wyrs[Math.floor(Math.random()*wyrs.length)];document.getElementById('wyrBox').innerHTML=q[0]+" <b>ATAU</b> "+q[1];incGame()}
-const triv=[{question:"Ibukota Jepang adalah?",options:["Osaka","Tokyo","Kyoto","Nagoya"],answer:1}];
-function trivia(){let t=triv[Math.floor(Math.random()*triv.length)];let h=`<h4>${t.question}</h4>`;t.options.forEach((v,i)=>{h+=`<button class="btn" onclick="checkTrivia(${i},${t.answer})">${v}</button> `;});document.getElementById('triviaBox').innerHTML=h;incGame()}
-function checkTrivia(selected,correct){if(selected===correct){alert("✅ Benar!");}else{alert("❌ Salah!");}}
-
-// --- LOGIKA HALAMAN REGISTER & LOGIN ---
-function renderRegisterPage() {
-    let sessionCard = document.getElementById('currentSessionCard');
-    let formCard = document.getElementById('registerFormCard');
-    
-    if(currentUser) {
-        document.getElementById('sessionNameDisplay').innerText = currentUser;
-        sessionCard.style.display = "block";
-        formCard.style.display = "none";
-    } else {
-        sessionCard.style.display = "none";
-        formCard.style.display = "block";
-    }
-}
-
-async function loginUser() {
-    let inputName = document.getElementById('loginName').value.trim();
-    if(!inputName) {
-        alert("Silakan masukkan Username terdaftar kamu!");
-        return;
-    }
-
-    const { data, error } = await supabaseClient
-        .from('users')
-        .select('name')
-        .eq('name', inputName)
-        .maybeSingle();
-
-    if(error) {
-        alert("Terjadi kesalahan sistem, coba lagi.");
-        return;
-    }
-
-    if(data) {
-        currentUser = data.name;
-        localStorage.setItem('comtea_username', data.name);
-        toast(`Berhasil sinkronisasi! Selamat datang kembali, ${data.name}.`);
-        document.getElementById('loginName').value = '';
-        showPage('dashboard');
-    } else {
-        alert("Username tidak ditemukan. Periksa kembali huruf besar/kecilnya.");
-    }
-}
-
-function logoutUser() {
-    if(confirm("Apakah kamu ingin keluar dari akun ini di perangkat ini?")) {
-        localStorage.removeItem('comtea_username');
-        currentUser = "";
-        toast("Berhasil keluar.");
-        showPage('register');
-    }
-}
-
-// --- LOGIKA PENGUNCIAN TAB KOMUNITAS ---
-function checkCommunityLock() {
-    let lockMessage = document.getElementById('communityLockMessage');
-    let contentArea = document.getElementById('communityContent');
-    
-    if(currentUser) {
-        lockMessage.innerHTML = "";
-        contentArea.style.display = "block";
-        renderUsers();
-    } else {
-        lockMessage.innerHTML = `<p style="color:red; font-weight:bold; text-align:center; padding: 20px 0;">⚠️ Fitur Komunitas Terkunci!<br><span style="color:gray; font-weight:normal; font-size:14px;">Kamu harus mendaftar atau masuk di tab <b>Daftar / Masuk</b> terlebih dahulu untuk melihat member lainnya.</span></p>`;
-        contentArea.style.display = "none";
-    }
-}
-
-function renderUsers() {
-    let searchVal = document.getElementById('search').value.toLowerCase();
-    let userBox = document.getElementById('users');
-    userBox.innerHTML = '';
-    
-    let filtered = globalUsers.filter(u => 
-        u.name.toLowerCase().includes(searchVal) || 
-        (u.hobby && u.hobby.toLowerCase().includes(searchVal))
-    );
-    
-    if(filtered.length === 0) {
-        userBox.innerHTML = "<p style='color:gray;'>Tidak ada member yang cocok.</p>";
-        return;
-    }
-    
-    filtered.forEach(u => {
-        let div = document.createElement('div');
-        div.className = 'profile';
-        div.innerHTML = `
-            <strong>@${u.name}</strong> <span class="badge">Member</span>
-            <p style="margin:5px 0 0; font-size:14px; color:#555;">Hobi: ${u.hobby || '-'}</p>
-            <button class="btn" style="margin-top:8px; padding:5px 10px; font-size:12px;" onclick="viewUserProfile('${u.name}')">Lihat Profil</button>
-        `;
-        userBox.appendChild(div);
-    });
-}
-
-// --- LOGIKA GRUP CHAT ONLINE REALTIME ---
-function checkChatSession() {
-    if(currentUser) {
-        document.getElementById('chatUserSession').innerHTML = `Mengirim pesan sebagai: <b>@${currentUser}</b>`;
-        document.getElementById('chatInput').disabled = false;
-    } else {
-        document.getElementById('chatUserSession').innerHTML = `<span style="color:red;">⚠️ Kamu belum mendaftar. Silakan mendaftar atau masuk di tab <b>Daftar / Masuk</b> terlebih dahulu untuk mendapatkan akses chat!</span>`;
-        document.getElementById('chatInput').disabled = true;
-    }
-}
-
-async function fetchInitialChats() {
-    const { data, error } = await supabaseClient.from('messages').select('*').order('created_at', { ascending: true }).limit(50);
-    if (!error && data) {
-        renderChats(data);
-    }
-}
-
-function renderChats(messagesArray) {
-    let chatBox = document.getElementById('chatBox');
-    chatBox.innerHTML = '';
-    
-    if(messagesArray.length === 0) {
-        chatBox.innerHTML = '<p style="text-align: center; color: gray; font-size: 14px;">Belum ada obrolan. Yuk mulai sapa teman-teman!</p>';
-        return;
-    }
-
-    messagesArray.forEach(m => {
-        let isMe = m.username === currentUser;
-        let div = document.createElement('div');
-        div.className = `msg ${isMe ? 'msg-me' : 'msg-other'}`;
-        div.innerHTML = `<span class="msg-user" onclick="viewUserProfile('${m.username}')">@${m.username}</span><span class="msg-text">${m.text}</span>`;
-        chatBox.appendChild(div);
-    });
-    chatBox.scrollTop = chatBox.scrollHeight;
-}
-
-async function sendChat() {
-    let input = document.getElementById('chatInput');
-    let messageText = input.value.trim();
-    
-    if(!currentUser) {
-        alert("Kamu harus mendaftar terlebih dahulu!");
-        return;
-    }
-    if(!messageText) return;
-
-    input.value = '';
-
-    const { error } = await supabaseClient.from('messages').insert([
-        { username: currentUser, text: messageText }
-    ]);
-
-    if(error) {
-        console.error("Gagal mengirim pesan:", error);
-    }
-}
-
-// --- FUNGSI KLIK USERNAME UTK LIHAT DETAIL PROFIL ---
-function viewUserProfile(username) {
-    let targetUser = globalUsers.find(u => u.name === username);
-    
-    if(targetUser) {
-        document.getElementById('modalName').innerText = `@${targetUser.name}`;
-        document.getElementById('modalBio').innerText = targetUser.bio || 'Tidak ada bio.';
-        document.getElementById('modalHobby').innerText = targetUser.hobby || '-';
-        document.getElementById('modalWaContainer').innerHTML = `<a class="btn-wa" href="https://wa.me/${targetUser.phone}" target="_blank" onclick="contacts++;updateStats()">Hubungi via WhatsApp</a>`;
-        document.getElementById('profileModal').style.display = "flex";
-    } else {
-        toast("Profil sedang memuat data terbaru, silakan coba lagi...");
-    }
-}
-
-function closeProfileModal() {
-    document.getElementById('profileModal').style.display = "none";
-}
-
-// --- FUNGSI DATABASE MEMBER SUPABASE ---
-async function fetchInitialUsers() {
-    const { data, error } = await supabaseClient.from('users').select('*').order('created_at', { ascending: false });
-    if (error) {
-        console.error('Gagal mengambil data:', error);
-    } else {
-        globalUsers = data || [];
-        renderUsers();
-        updateStats();
-    }
-}
-
-async function saveUser(){
-    let nameVal = document.getElementById('regName').value.trim();
-    let phoneVal = document.getElementById('regPhone').value.trim();
-    let hobbyVal = document.getElementById('regHobby').value.trim();
-    let bioVal = document.getElementById('regBio').value.trim();
-
-    if(!nameVal || !phoneVal){
-        alert('Username dan Nomor WhatsApp wajib diisi!');
-        return;
-    }
-    
-    if(nameVal.includes(" ")) {
-        alert('Username tidak boleh mengandung spasi!');
-        return;
-    }
-
-    const { error } = await supabaseClient.from('users').insert([
-        { name: nameVal, phone: phoneVal, hobby: hobbyVal, bio: bioVal }
-    ]);
-
-    if (error) {
-        if(error.code === "23505") {
-            if (error.message.includes("users_name_unique") || error.details.includes("name")) {
-                alert("❌ Gagal mendaftar! Username ini sudah dipakai orang lain. Silakan buat username unik yang berbeda.");
-            } else {
-                alert("❌ Gagal mendaftar! Nomor WhatsApp ini sudah terdaftar sebagai membership Comtea.");
-            }
-        } else {
-            alert('Gagal mendaftar, coba lagi.');
-            console.error(error);
-        }
-        return;
-    }
-
-    currentUser = nameVal;
-    localStorage.setItem('comtea_username', nameVal);
-
-    document.getElementById('regName').value = '';
-    document.getElementById('regPhone').value = '';
-    document.getElementById('regHobby').value = '';
-    document.getElementById('regBio').value = '';
-
-    toast('Pendaftaran berhasil!');
-    
-    await fetchInitialUsers();
-    showPage('groupchat'); 
-}
-
-function listenRealtime() {
-    supabaseClient
-        .channel('schema-db-changes')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'users' }, payload => {
-            if (!globalUsers.some(u => u.id === payload.new.id)) {
-                globalUsers.unshift(payload.new);
-                renderUsers();
-                updateStats();
-                toast(`Member baru terdaftar: @${payload.new.name}! 🎉`);
-            }
-        })
-        .subscribe();
-
-    supabaseClient
-        .channel('chat-changes')
-        .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages' }, async () => {
-            const { data } = await supabaseClient.from('messages').select('*').order('created_at', { ascending: true }).limit(50);
-            if(data) renderChats(data);
-        })
-        .subscribe();
-}
-
-// Jalankan fungsi inisialisasi setelah dokumen siap
-window.onload = function() {
-    fetchInitialUsers();
-    listenRealtime();
-};
-</script>
 </body>
 </html>
