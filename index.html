@@ -4,327 +4,321 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>LAZY GAINS PROTEIN MEAL - Open Pre-Order</title>
-<!-- Google Font: Montserrat & Poppins -->
+<!-- Font Poppins -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 
 <style>
-:root{
-  --orange:#e67e22;
-  --yellow:#f39c12;
-  --cream:#fffdf9;
-  --green:#27ae60;
-  --light-green:#e8f8f5;
-  --dark:#2c3e50;
+:root {
+  --orange: #e67e22;
+  --yellow: #f1c40f;
+  --green: #27ae60;
+  --bg-light: #fefcf7;
+  --card-bg: #ffffff;
+  --text-dark: #2c3e50;
+  --text-muted: #7f8c8d;
 }
+
 *{box-sizing:border-box} 
-body{margin:0;font-family:'Poppins', sans-serif;background:var(--cream);color:var(--dark)}
+body{margin:0;font-family:'Poppins', sans-serif;background:var(--bg-light);color:var(--text-dark)}
 
-header{background:linear-gradient(135deg, var(--orange), var(--yellow));color:#fff;padding:30px 20px;text-align:center;border-bottom-left-radius:20px;border-bottom-right-radius:20px}
-.logo-box{width:80px;height:80px;background:#fff;border-radius:50%;margin:0 auto 10px auto;display:flex;align-items:center;justify-content:center;font-size:35px;box-shadow:0 4px 10px rgba(0,0,0,0.15)}
-header h1{margin:5px 0 0 0;font-size:24px}
-header p{margin:5px 0 0 0;font-size:14px;opacity:0.9}
+header{background:linear-gradient(135deg, var(--orange), var(--yellow));color:#fff;padding:30px 20px;text-align:center;border-bottom-left-radius:24px;border-bottom-right-radius:24px}
+header .logo {width:90px;height:90px;border-radius:50%;object-fit:cover;background:#fff;padding:4px;box-shadow:0 4px 10px rgba(0,0,0,0.15);margin-bottom:10px}
+header h1{margin:5px 0;font-size:26px;font-weight:700}
+header p{margin:0;font-size:14px;opacity:0.95}
 
-nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;background:#fff;padding:12px;position:sticky;top:0;box-shadow:0 2px 10px rgba(0,0,0,.08);z-index:100}
+nav{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;background:#fff;padding:12px;position:sticky;top:0;z-index:100;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 nav button,.btn{border:none;padding:10px 18px;border-radius:10px;cursor:pointer;background:var(--orange);color:#fff;font-family:'Poppins', sans-serif;font-weight:600;transition:0.2s}
 nav button:hover, .btn:hover{background:var(--green)}
 
-.page{display:none;padding:20px;max-width:800px;margin:auto}
+.page{display:none;padding:20px;max-width:900px;margin:auto}
 .active{display:block}
-.card{background:#fff;border-radius:18px;padding:20px;box-shadow:0 4px 12px rgba(0,0,0,.05);margin-bottom:15px;border:1px solid #f0f0f0}
+.card{background:var(--card-bg);border-radius:18px;padding:20px;box-shadow:0 4px 12px rgba(0,0,0,.05);margin-bottom:20px;border:1px solid #f0f0f0}
 
-input,select,textarea{width:100%;padding:10px;margin:6px 0;border-radius:8px;border:1px solid #ccc;font-family:'Poppins', sans-serif}
-label{font-size:13px;font-weight:600;color:#555}
+input,select,textarea{width:100%;padding:11px;margin:6px 0;border-radius:8px;border:1px solid #e0e0e0;font-family:'Poppins', sans-serif}
+label{font-size:13px;font-weight:600;color:var(--text-dark)}
 
 .toast{position:fixed;right:20px;bottom:20px;background:#333;color:#fff;padding:12px 20px;border-radius:10px;display:none;z-index:999;font-size:14px}
 .btn-wa{display:inline-block;margin-top:10px;padding:10px 16px;background:#25D366;color:white;text-decoration:none;border-radius:8px;font-weight:bold;font-size:14px;text-align:center}
 
-.note-box{background:#fef9e7;border-left:5px solid var(--yellow);padding:12px;margin:10px 0;border-radius:6px;font-size:13px;color:#7d5a29;line-height:1.5}
-.menu-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px dashed #eee}
-.qty-input{width:70px!important;margin:0!important;text-align:center}
+.info-banner{background:#fff9e6;border-left:5px solid var(--yellow);padding:14px;margin:15px 0;border-radius:8px;font-size:13px;line-height:1.5}
+.menu-item{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px dashed #eee}
+.menu-item:last-child{border-bottom:none}
+.qty-input{width:70px!important;padding:6px;text-align:center;margin:0!important}
+
+.summary-box{background:#f9f9f9;padding:15px;border-radius:12px;margin-top:15px}
+.total-price{font-size:20px;font-weight:700;color:var(--green)}
 </style>
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
 
 <header>
-  <div class="logo-box">🌯</div>
-  <h1>LAZY GAINS PROTEIN MEAL 💪🏼</h1>
-  <p>🔥 OPEN PRE ORDER (10-12 Agustus 2026) 🔥</p>
+  <!-- Ganti src logo di bawah dengan URL / file logo Anda -->
+  <img src="https://via.placeholder.com/100/e67e22/ffffff?text=LAZY+GAINS" alt="Lazy Gains Logo" class="logo">
+  <h1>🔥 LAZY GAINS PROTEIN MEAL 💪🏼</h1>
+  <p>Open Pre-Order: <b>10-12 Agustus 2026</b></p>
 </header>
 
 <nav>
+  <button onclick="showPage('po-info')">Info PO</button>
   <button onclick="showPage('order')">Pesan Sekarang</button>
-  <button onclick="showPage('info')">Info PO & Lokasi</button>
 </nav>
 
-<!-- PAGE 1: PESAN SEKARANG (FORM ORDER) -->
-<section id="order" class="page active">
+<!-- PAGE 1: INFO PO -->
+<section id="po-info" class="page active">
   <div class="card">
-    <h2>Form Pemesanan</h2>
-    <form id="poForm" onsubmit="submitOrder(event)">
-      
-      <!-- Required Data 1 & 2 -->
-      <label>Nama Pelanggan *</label>
-      <input id="custName" required placeholder="Masukkan nama Anda">
-      
-      <label>Nomor Telepon / WhatsApp *</label>
-      <input id="custPhone" type="tel" required placeholder="Contoh: 08123456789">
+    <h2>🌯 High Protein Chicken Wrap</h2>
+    <p>Buat yang mau makan enak tapi tetap ngejar protein! 💪🏼</p>
+    
+    <div class="info-banner">
+      <b>📅 Pick up / Delivery Date & Time:</b><br>
+      13 Agustus 2026<br>
+      • Batch Pagi : 08.00 - 09.00 AM<br>
+      • Batch Siang : 12.00 - 14.00 PM<br>
+      • Batch Malam : 16.30 - 21.00 PM<br><br>
+      <b>📍 Location:</b> Surabaya Timur (belakang Galaxy Mall)<br>
+      <b>🛵 Pengiriman:</b> Bisa pickup / delivery (ongkir menyesuaikan alamat)
+    </div>
 
-      <!-- Required Data 3 -->
+    <a href="https://wa.me/6285100314295" target="_blank" class="btn-wa">Mau Custom Order? Kontak WA Kami</a>
+  </div>
+</section>
+
+<!-- PAGE 2: FORM PESANAN -->
+<section id="order" class="page">
+  <div class="card">
+    <h2>Formulir Pre-Order</h2>
+    <form id="orderForm" onsubmit="submitOrder(event)">
+      
+      <!-- Data Pemesan -->
+      <label>Nama Pelanggan *</label>
+      <input type="text" id="custName" required placeholder="Contoh: Budi Santoso">
+      
+      <label>Nomor WhatsApp *</label>
+      <input type="tel" id="custPhone" required placeholder="Contoh: 081234567890">
+
       <label>Metode Pengambilan *</label>
-      <select id="custMethod" required onchange="toggleAddress()">
-        <option value="Pickup">Pickup (Surabaya Timur)</option>
+      <select id="deliveryType" required onchange="toggleAddressBox()">
+        <option value="Pickup">Pickup (Belakang Galaxy Mall)</option>
         <option value="Delivery">Delivery (Ongkir menyesuaikan)</option>
       </select>
 
-      <div id="addressField" style="display:none;">
-        <label>Alamat Pengiriman</label>
-        <textarea id="custAddress" placeholder="Masukkan alamat lengkap pengiriman"></textarea>
+      <div id="addressBox" style="display:none;">
+        <label>Alamat Lengkap Pengiriman</label>
+        <textarea id="custAddress" placeholder="Masukkan alamat lengkap..."></textarea>
       </div>
 
-      <label>Pilih Batch Pengambilan (13 Agustus 2026) *</label>
-      <select id="custBatch" required>
-        <option value="Batch Pagi (08.00-09.00 AM)">Batch Pagi : 08.00-09.00 AM</option>
-        <option value="Batch Siang (12.00-14.00 PM)">Batch Siang : 12.00-14.00 PM</option>
-        <option value="Batch Malam (16.30-21.00 PM)">Batch Malam : 16.30-21.00 PM</option>
+      <label>Pilih Batch Pengambilan/Pengiriman *</label>
+      <select id="pickupBatch" required>
+        <option value="Batch Pagi (08.00-09.00 AM)">Batch Pagi (08.00-09.00 AM)</option>
+        <option value="Batch Siang (12.00-14.00 PM)">Batch Siang (12.00-14.00 PM)</option>
+        <option value="Batch Malam (16.30-21.00 PM)">Batch Malam (16.30-21.00 PM)</option>
       </select>
 
       <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
 
-      <!-- Pilihan Menu Wrap -->
-      <h3>Menu Utama (Chicken Wrap)</h3>
+      <!-- Pilih Menu Wrap -->
+      <h3>Menu Wrap</h3>
       
       <div class="menu-item">
         <div>
-          <strong>Chicken Wrap (Ready to eat)</strong><br>
-          <small>50gr Protein - Rp38.000</small>
+          <b>Chicken Wrap (Ready to Eat)</b><br>
+          <small>50gr Protein - Rp 38.000</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="Chicken Wrap (Ready to Eat)" data-price="38000" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="38000" data-name="Chicken Wrap (Ready to Eat)" onchange="calculateTotal()">
       </div>
 
       <div class="menu-item">
         <div>
-          <strong>Chicken Wrap (Frozen)</strong><br>
-          <small>50gr Protein - Rp37.000</small>
+          <b>Chicken Wrap (Frozen)</b><br>
+          <small>50gr Protein - Rp 37.000</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="Chicken Wrap (Frozen)" data-price="37000" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="37000" data-name="Chicken Wrap (Frozen)" onchange="calculateTotal()">
       </div>
 
       <div class="menu-item">
         <div>
-          <strong>Chicken & Egg Wrap (Ready to eat)</strong><br>
-          <small>38gr Protein - Rp28.000</small>
+          <b>Chicken & Egg Wrap (Ready to Eat)</b><br>
+          <small>38gr Protein - Rp 28.000</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="Chicken & Egg Wrap (Ready to Eat)" data-price="28000" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="28000" data-name="Chicken & Egg Wrap (Ready to Eat)" onchange="calculateTotal()">
       </div>
 
       <div class="menu-item">
         <div>
-          <strong>Chicken & Egg Wrap (Frozen)</strong><br>
-          <small>38gr Protein - Rp27.000</small>
+          <b>Chicken & Egg Wrap (Frozen)</b><br>
+          <small>38gr Protein - Rp 27.000</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="Chicken & Egg Wrap (Frozen)" data-price="27000" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="27000" data-name="Chicken & Egg Wrap (Frozen)" onchange="calculateTotal()">
       </div>
 
-      <!-- Menu ADD ON Sauces -->
+      <!-- ADD ON Sauces -->
       <h3 style="margin-top:20px;">ADD ON Sauces</h3>
 
       <div class="menu-item">
         <div>
-          <strong>Lazy Gains Sauce</strong><br>
-          <small>Rp1.500</small>
+          <b>Lazy Gains Sauce</b><br>
+          <small>Rp 1.500</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="Lazy Gains Sauce" data-price="1500" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="1500" data-name="Lazy Gains Sauce" onchange="calculateTotal()">
       </div>
 
       <div class="menu-item">
         <div>
-          <strong>Chili Sauce</strong><br>
-          <small>Rp900</small>
+          <b>Chili Sauce</b><br>
+          <small>Rp 900</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="Chili Sauce" data-price="900" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="900" data-name="Chili Sauce" onchange="calculateTotal()">
       </div>
 
       <div class="menu-item">
         <div>
-          <strong>Ketchup</strong><br>
-          <small>Rp600</small>
+          <b>Ketchup</b><br>
+          <small>Rp 600</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="Ketchup" data-price="600" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="600" data-name="Ketchup" onchange="calculateTotal()">
       </div>
 
       <div class="menu-item">
         <div>
-          <strong>[LIMITED] Garlic Sauce</strong><br>
-          <small>Rp1.500</small>
+          <b>[LIMITED] Garlic Sauce</b><br>
+          <small>Rp 1.500</small>
         </div>
-        <input type="number" min="0" value="0" class="qty-input menu-item-qty" data-name="[LIMITED] Garlic Sauce" data-price="1500" onchange="calculateTotal()">
+        <input type="number" min="0" value="0" class="qty-input menu-qty" data-price="1500" data-name="[LIMITED] Garlic Sauce" onchange="calculateTotal()">
       </div>
 
-      <!-- Hitung Total Biaya Otomatis -->
-      <div style="background:var(--light-green); padding:15px; border-radius:10px; margin-top:20px; text-align:right;">
-        <span style="font-size:14px; font-weight:600;">Total Biaya:</span>
-        <div style="font-size:24px; font-weight:bold; color:var(--green);" id="totalDisplay">Rp 0</div>
+      <!-- Ringkasan Total & Pembayaran -->
+      <div class="summary-box">
+        <div>Total Estimasi Tambahan:</div>
+        <div class="total-price" id="totalDisplay">Rp 0</div>
+        <small style="color:var(--text-muted);">*Belum termasuk ongkir jika memilih Delivery</small>
       </div>
 
       <br>
-      <!-- Required Data 4 -->
       <label>Upload Bukti Transfer *</label>
-      <input type="file" id="custProof" accept="image/*" required>
+      <input type="file" id="paymentProof" accept="image/*" required>
 
       <br><br>
-      <button type="submit" class="btn" style="width:100%; padding:12px; font-size:16px;">Kirim Pesanan Pre-Order</button>
+      <button type="submit" class="btn" style="width:100%; padding:14px; font-size:16px;">Kirim Pesanan</button>
     </form>
-  </div>
-</section>
-
-<!-- PAGE 2: INFO PO & LOKASI -->
-<section id="info" class="page">
-  <div class="card">
-    <h2>Informasi Pre-Order</h2>
-    <div class="note-box">
-      <strong>📅 Periode Open PO:</strong> 10 - 12 Agustus 2026<br>
-      <strong>📅 Pick up / Delivery Date:</strong> 13 Agustus 2026
-    </div>
-
-    <h3>⏰ Batch Waktu Pengambilan:</h3>
-    <ul>
-      <li><strong>Batch Pagi:</strong> 08.00 - 09.00 AM</li>
-      <li><strong>Batch Siang:</strong> 12.00 - 14.00 PM</li>
-      <li><strong>Batch Malam:</strong> 16.30 - 21.00 PM</li>
-    </ul>
-
-    <h3>📍 Lokasi Pick up:</h3>
-    <p>Surabaya Timur (belakang Galaxy Mall)</p>
-    <p><small>* Boleh pilih Delivery, ongkir akan disesuaikan dengan alamat pengiriman.</small></p>
-
-    <hr style="border:0; border-top:1px solid #eee; margin:20px 0;">
-
-    <h3>💬 Custom Order?</h3>
-    <p>Mau custom order bisa langsung kontak admin kami via WhatsApp:</p>
-    <a class="btn-wa" href="https://wa.me/6285100314295" target="_blank">Chat via WhatsApp (085100314295)</a>
   </div>
 </section>
 
 <div class="toast" id="toast"></div>
 
 <script>
-// Konfigurasi Supabase
+// Configuration Supabase
 const SUPABASE_URL = "https://ftvsdjazqwbonanaihwh.supabase.co";
 const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZ0dnNkamF6cXdib25hbmFpaHdoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODA0NjIyNzMsImV4cCI6MjA5NjAzODI3M30.AOJh70E0Opgj86sHKNivkeL1fOptIBAaeoGuSEyRgQY";
 const supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
 
 function showPage(id){
-    document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
 }
 
-function toast(t){
-    let x = document.getElementById('toast');
-    x.innerText = t;
-    x.style.display = 'block';
-    setTimeout(() => x.style.display = 'none', 3000);
+function toast(msg){
+  let x = document.getElementById('toast');
+  x.innerText = msg;
+  x.style.display = 'block';
+  setTimeout(() => x.style.display = 'none', 3000);
 }
 
-function toggleAddress(){
-    let method = document.getElementById('custMethod').value;
-    document.getElementById('addressField').style.display = (method === 'Delivery') ? 'block' : 'none';
+function toggleAddressBox() {
+  let type = document.getElementById('deliveryType').value;
+  document.getElementById('addressBox').style.display = (type === 'Delivery') ? 'block' : 'none';
 }
 
-// Menghitung total biaya secara otomatis berdasarkan input quantity
-function calculateTotal(){
-    let total = 0;
-    let items = document.querySelectorAll('.menu-item-qty');
-    items.forEach(item => {
-        let qty = parseInt(item.value) || 0;
-        let price = parseInt(item.getAttribute('data-price')) || 0;
-        total += qty * price;
-    });
-    document.getElementById('totalDisplay').innerText = "Rp " + total.toLocaleString('id-ID');
-    return total;
+function calculateTotal() {
+  let total = 0;
+  document.querySelectorAll('.menu-qty').forEach(input => {
+    let qty = parseInt(input.value) || 0;
+    let price = parseInt(input.getAttribute('data-price')) || 0;
+    total += qty * price;
+  });
+  document.getElementById('totalDisplay').innerText = "Rp " + total.toLocaleString('id-ID');
+  return total;
 }
 
-// Fungsi mengirim order ke Supabase
-async function submitOrder(e){
-    e.preventDefault();
-    
-    let grandTotal = calculateTotal();
-    if(grandTotal === 0){
-        alert("Silakan pilih minimal 1 item pesanan!");
-        return;
+async function submitOrder(e) {
+  e.preventDefault();
+  
+  let total = calculateTotal();
+  if(total === 0) {
+    alert("Silakan pilih minimal 1 item!");
+    return;
+  }
+
+  let name = document.getElementById('custName').value.trim();
+  let phone = document.getElementById('custPhone').value.trim();
+  let deliveryType = document.getElementById('deliveryType').value;
+  let address = document.getElementById('custAddress').value.trim();
+  let batch = document.getElementById('pickupBatch').value;
+  let fileInput = document.getElementById('paymentProof');
+
+  if(fileInput.files.length === 0) {
+    alert("Harap unggah bukti transfer!");
+    return;
+  }
+
+  // Rincian menu pilihan
+  let orderDetails = [];
+  document.querySelectorAll('.menu-qty').forEach(input => {
+    let qty = parseInt(input.value) || 0;
+    if(qty > 0) {
+      let itemName = input.getAttribute('data-name');
+      orderDetails.push(`${itemName} (${qty}x)`);
+    }
+  });
+
+  try {
+    toast("Mengunggah bukti bayar...");
+    let file = fileInput.files[0];
+    let fileExt = file.name.split('.').pop();
+    let fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+
+    // Upload file ke Supabase Storage (Bucket "proofs")
+    const { data: uploadData, error: uploadError } = await supabaseClient.storage
+      .from('proofs')
+      .upload(fileName, file);
+
+    let imageUrl = "";
+    if (!uploadError) {
+      const { data: urlData } = supabaseClient.storage.from('proofs').getPublicUrl(fileName);
+      imageUrl = urlData.publicUrl;
+    } else {
+      imageUrl = "File Terupload: " + fileName;
     }
 
-    let name = document.getElementById('custName').value.trim();
-    let phone = document.getElementById('custPhone').value.trim();
-    let method = document.getElementById('custMethod').value;
-    let address = document.getElementById('custAddress').value.trim();
-    let batch = document.getElementById('custBatch').value;
-    let fileInput = document.getElementById('custProof');
+    // Insert data pesanan ke database Supabase (Tabel "orders")
+    const { error: dbError } = await supabaseClient.from('orders').insert([{
+      name: name,
+      phone: phone,
+      delivery_type: deliveryType,
+      address: address,
+      batch: batch,
+      items: orderDetails.join(', '),
+      total_price: total,
+      proof_url: imageUrl
+    }]);
 
-    if(!fileInput.files || fileInput.files.length === 0){
-        alert("Mohon unggah bukti transfer!");
-        return;
+    if(dbError) {
+      console.error(dbError);
+      alert("Gagal menyimpan pesanan. Silakan pastikan tabel 'orders' tersedia di Supabase.");
+      return;
     }
 
-    // Mengumpulkan item yang dipesan
-    let selectedItems = [];
-    document.querySelectorAll('.menu-item-qty').forEach(item => {
-        let qty = parseInt(item.value) || 0;
-        if(qty > 0){
-            selectedItems.push(`${item.getAttribute('data-name')} (${qty}x)`);
-        }
-    });
+    alert("🎉 Pesanan berhasil dikirim!");
+    document.getElementById('orderForm').reset();
+    calculateTotal();
 
-    toast("Mengunggah bukti transfer...");
-
-    try {
-        let file = fileInput.files[0];
-        let fileExt = file.name.split('.').pop();
-        let fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
-
-        // 1. Upload Gambar Bukti Transfer ke Supabase Storage (Bucket: proofs)
-        const { data: uploadData, error: uploadError } = await supabaseClient.storage
-            .from('proofs')
-            .upload(fileName, file);
-
-        let imageUrl = "";
-        if (!uploadError) {
-            const { data: publicUrlData } = supabaseClient.storage.from('proofs').getPublicUrl(fileName);
-            imageUrl = publicUrlData.publicUrl;
-        } else {
-            imageUrl = "Upload file: " + fileName;
-        }
-
-        // 2. Simpan Data Order ke Tabel Database Supabase (Table: orders)
-        const { error: dbError } = await supabaseClient.from('orders').insert([
-            {
-                name: name,
-                phone: phone,
-                method: method,
-                address: address,
-                batch: batch,
-                items: selectedItems.join(', '),
-                total_price: grandTotal,
-                proof_url: imageUrl
-            }
-        ]);
-
-        if (dbError) {
-            console.error(dbError);
-            alert("Gagal menyimpan pesanan. Pastikan tabel 'orders' sudah dikonfigurasi di Supabase.");
-            return;
-        }
-
-        alert("🎉 Pesanan berhasil dikirim! Terima kasih telah melakukan Pre-Order.");
-        document.getElementById('poForm').reset();
-        calculateTotal();
-
-    } catch (err) {
-        console.error(err);
-        alert("Terjadi kesalahan sistem saat mengirim pesanan.");
-    }
+  } catch(err) {
+    console.error(err);
+    alert("Terjadi kesalahan sistem.");
+  }
 }
 </script>
 </body>
